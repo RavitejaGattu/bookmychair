@@ -1,6 +1,6 @@
 sap.ui.define([
     'sap/ui/core/mvc/Controller',
-    'ui5/model/models'
+    'bookmychair/model/models'
 ], function (Controller, models) {
     'use strict';
     return Controller.extend("bookmychair.controller.App", {
