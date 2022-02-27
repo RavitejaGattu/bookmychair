@@ -24,7 +24,7 @@ sap.ui.define([
         onShowHello: function () {
             alert("Hi");
         },
-        onPress: function () {
+        onSave: function () {
 
             var oData = this.getView().getModel("save").getData();
 
@@ -37,7 +37,27 @@ sap.ui.define([
                 this.getData();
                 var oSaveModel = models.saveModel();
                 this.getView().setModel(oSaveModel, "save");
+                this.pDialog.then(function (oDialog) {
+                    oDialog.close();
+                });
             }.bind(this));
+        },
+        onCancel: function () {
+            this.pDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+        },
+        onOpenDialog: function () {
+            // create dialog lazily
+            if (!this.pDialog) {
+                this.pDialog = this.loadFragment({
+                    name: "bookmychair.fragments.addRole"
+                });
+            }
+
+            this.pDialog.then(function (oDialog) {
+                oDialog.open();
+            });
         }
     });
 });

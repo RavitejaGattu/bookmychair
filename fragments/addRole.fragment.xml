@@ -1,0 +1,17 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		id="helloDialog" title="Add Role">
+        <content>
+            <VBox class="sapUiResponsiveMargin">
+                <Input value="{save>/role}" placeholder="Role" />
+                <Input value="{save>/name}" placeholder="Description"/>
+                <HBox justifyContent="SpaceBetween" alignItems="SpaceBetween">
+                    <Button text="Save" press="onSave" type="Accept"/>
+                    <Button text="Cancel" press="onCancel" type="Reject"/>
+                </HBox>
+            </VBox>
+        </content>
+	</Dialog>
+</core:FragmentDefinition>

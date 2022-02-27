@@ -5,6 +5,9 @@
     <Shell>
         <App>
             <Page title="UI5 Application with Node JS">
+                <headerContent>
+                    <Button icon="sap-icon://add" tooltip="Add" press="onOpenDialog" />
+                </headerContent>
                 <content>
                     <!-- <Text text="Hello World"/>
                     <Button text="say hello" press=".onShowHello"/> -->
@@ -14,11 +17,6 @@
                                 <StandardListItem title="{MasterRoles>role}" type="Navigation"/>
                             </items>
                         </List>
-                        <HBox>
-                            <Input value="{save>/role}" placeholder="Role" />
-                            <Input value="{save>/name}" placeholder="Description"/>
-                            <Button text="save" press="onPress" />
-                        </HBox>
                     </Panel>
                 </content>
             </Page>
