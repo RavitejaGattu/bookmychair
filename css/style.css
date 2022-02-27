@@ -1,0 +1,17 @@
+.wuiDarkFrame { 
+    background-color: #d9edf7 !important;;
+    border-color: #bce8f1 !important;;
+    color: #3a87ad !important;;
+    border-width: 0px;
+    border-style: none;
+    border-radius: 4px !important;;
+}
+
+.wuiGreyFrame {    
+    background-color: #f5f5f5 !important;
+    border-color: #dddddd !important;
+    border-width: 1px;
+    border-style: solid;
+    color: #3a87ad !important;
+    border-radius: 4px !important;
+}

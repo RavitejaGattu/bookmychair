@@ -7,30 +7,50 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const url = "mongodb+srv://ravitejagattu:GattuRavi@cluster0.zkqg1.mongodb.net/cluster0?retryWrites=true&w=majority";
 MongoClient.connect(url, { useUnifiedTopology: true })
     .then(client => {
-        const db = client.db('UI5DB');
+        const db = client.db('book-my-chair');
         console.log("Connected to Database");
-        const masterRoleCollection = db.collection('masterrole');
-        // app.get('/', (req, res) => {
-        //     res.send("Welcome to Book My Chair Application!!!");
-        // })
+        const userCollection = db.collection('users');
 
-        //post method
-        app.post('/masterrolepost', (req, res) => {
-            masterRoleCollection.insertOne(req.body)
+        app.post('/users', (req, res) => {
+            userCollection.insertOne(req.body)
                 .then(result => {
-                    res.redirect('/masterrole')
+                    // res.redirect('/masterrole')
+                    res.send(result);
+                    console.log(result);
                 })
                 .catch(error => { console.log(error) })
         })
-        //get method
-        app.get('/masterrole', (req, res) => {
-            db.collection('masterrole').find().toArray()
-                .then(results => {
-                    console.log(results);
-                    res.send(results);
-                })
-                .catch(error => console.error(error))
-        })
+
+        app.post('/login', async (req, res, next) => {
+            const user = await userCollection.findOne({
+                username: req.body.username,
+                password: req.body.password
+            });
+            if (user) res.send(user);
+            else res.redirect('/');
+        });
+
+        // const db = client.db('UI5DB');
+        // console.log("Connected to Database");
+        // const masterRoleCollection = db.collection('masterrole');
+
+        // //post method
+        // app.post('/masterrolepost', (req, res) => {
+        //     masterRoleCollection.insertOne(req.body)
+        //         .then(result => {
+        //             res.redirect('/masterrole')
+        //         })
+        //         .catch(error => { console.log(error) })
+        // })
+        // //get method
+        // app.get('/masterrole', (req, res) => {
+        //     db.collection('masterrole').find().toArray()
+        //         .then(results => {
+        //             // console.log(results);
+        //             res.send(results);
+        //         })
+        //         .catch(error => console.error(error))
+        // })
 
     })
     .catch(error => {

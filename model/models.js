@@ -8,6 +8,25 @@ sap.ui.define([
                 role: "",
                 name: ""
             });
+        },
+
+        signUpModel: function(){
+            return new JSONModel({
+                name: "",
+                phone: "",
+                email: "",
+                address: "",
+                country: "",
+                password: "",
+                cpassword: ""
+            });
+        },
+
+        signInModel: function(){
+            return new JSONModel({
+                username: "",
+                password: ""
+            });
         }
     }
 });
