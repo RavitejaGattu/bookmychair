@@ -1,0 +1,27 @@
+<mvc:view
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    controllerName="ui5.controller.App">
+    <Shell>
+        <App>
+            <Page title="UI5 Application with Node JS">
+                <content>
+                    <!-- <Text text="Hello World"/>
+                    <Button text="say hello" press=".onShowHello"/> -->
+                    <Panel>
+                        <List headerText="Master Roles fetched from MongoDB Atlas" items="{MasterRoles>/}" >
+                            <items>
+                                <StandardListItem title="{MasterRoles>role}" type="Navigation"/>
+                            </items>
+                        </List>
+                        <HBox>
+                            <Input value="{save>/role}" placeholder="Role" />
+                            <Input value="{save>/name}" placeholder="Description"/>
+                            <Button text="save" press="onPress" />
+                        </HBox>
+                    </Panel>
+                </content>
+            </Page>
+        </App>
+    </Shell>
+</mvc:view>
