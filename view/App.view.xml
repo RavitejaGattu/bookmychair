@@ -44,7 +44,7 @@
                                             <Label text="Address" />
                                             <TextArea value="{SignUp>/address}" maxLength="200" placeholder="Enter your address"/>
                                             <Label text="Country" />
-                                            <Select id="country" selectedKey="{SignUp>/country}"  >
+                                            <Select id="country" selectedKey="{SignUp>/country}" forceSelection="false" >
                                                 <items>
                                                     <core:Item text="India" key="India"/>
                                                 </items>
