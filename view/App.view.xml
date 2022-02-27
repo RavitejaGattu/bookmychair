@@ -6,8 +6,8 @@
     xmlns:core="sap.ui.core"
     displayBlock="true"
     controllerName="bookmychair.controller.App">
-    <Shell>
-        <App>
+    <Shell class="sapUiSizeCompact">
+        <App id="app" >
             <pages>
                 <Page id="idLoginPage" title="{i18n>pageTitle}">
                     <content>
