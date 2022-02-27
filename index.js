@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
+const { response } = require('express');
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true }));
 const url = "mongodb+srv://ravitejagattu:GattuRavi@cluster0.zkqg1.mongodb.net/cluster0?retryWrites=true&w=majority";
@@ -21,13 +22,30 @@ MongoClient.connect(url, { useUnifiedTopology: true })
                 .catch(error => { console.log(error) })
         })
 
-        app.post('/login', async (req, res, next) => {
-            const user = await userCollection.findOne({
-                username: req.body.username,
-                password: req.body.password
+        app.post('/login', (req, res) => {
+            console.log(req.body.username, req.body.password);
+
+
+
+            var query = { name: req.body.username, password: req.body.password }
+            userCollection.find(query).toArray(function (err, result) {
+                if (err) throw err;
+                if (result) res.send(result);
+                console.log(result);
             });
-            if (user) res.send(user);
-            else res.redirect('/');
+            // userCollection.findOne({
+            //     name: req.body.username,
+            //     password: req.body.password
+            // }, function (err, userCollection) {
+            //     res.send(response);
+            //     console.log(response);
+            // })
+            // const user = await userCollection.findOne({
+            //     name: req.body.username,
+            //     password: req.body.password
+            // });
+            // if (user) res.send(user);
+            // else res.redirect('/');
         });
 
         // const db = client.db('UI5DB');
