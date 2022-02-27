@@ -9,7 +9,7 @@
     <Shell>
         <App>
             <pages>
-                <Page id="idLoginPage" title="Login">
+                <Page id="idLoginPage" title="{i18n>pageTitle}">
                     <content>
                         <Panel class="sapUiResponsiveMargin" width="auto"> 
                             <content>
@@ -29,7 +29,8 @@
                                         columnsXL="2"
                                         columnsL="2"
                                         columnsM="1"
-                                        singleContainerFullSize="false" >
+                                        singleContainerFullSize="false" 
+                                        class="wuiGreyFrame">
                                         <f:content>
                                             <core:Title text="Sign Up" />
                                             <Label text="Name" />

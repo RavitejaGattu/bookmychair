@@ -15,3 +15,12 @@
     color: #3a87ad !important;
     border-radius: 4px !important;
 }
+
+.wuiLightFrame {    
+    background-color: white !important;
+    border-color: #dddddd !important;
+    border-width: 1px;
+    border-style: solid;
+    color: #333333 !important;
+    border-radius: 4px !important;
+}

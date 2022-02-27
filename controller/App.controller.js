@@ -1,17 +1,22 @@
 sap.ui.define([
     'sap/ui/core/mvc/Controller',
     'bookmychair/model/models',
-    'sap/m/MessageBox'
-], function (Controller, models, MessageBox) {
+    'sap/m/MessageBox',
+    "sap/ui/model/resource/ResourceModel"
+], function (Controller, models, MessageBox, ResourceModel) {
     'use strict';
     return Controller.extend("bookmychair.controller.App", {
         onInit: function () {
             var oView = this.getView();
+            this.oOwnerComponent = this.getOwnerComponent();
             var oSignUp = models.signUpModel();
-            oView.setModel(oSignUp, "SignUp");
+            this.oOwnerComponent.setModel(oSignUp, "SignUp");
             var oSignIn = models.signInModel();
-            oView.setModel(oSignIn, "SignIn");
-
+            this.oOwnerComponent.setModel(oSignIn, "SignIn");
+            var i18nModel = new ResourceModel({
+                bundleName: "bookmychair.i18n.i18n"
+            });
+            this.oOwnerComponent.setModel(i18nModel, "i18n");
 
             // var oSaveModel = models.saveModel();
             // oView.setModel(oSaveModel, "save");
