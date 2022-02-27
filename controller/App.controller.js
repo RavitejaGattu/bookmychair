@@ -9,6 +9,7 @@ sap.ui.define([
         onInit: function () {
             var oView = this.getView();
             this.oOwnerComponent = this.getOwnerComponent();
+            this.getView().addStyleClass(this.oOwnerComponent.getContentDensityClass());
             var oSignUp = models.signUpModel();
             this.oOwnerComponent.setModel(oSignUp, "SignUp");
             var oSignIn = models.signInModel();
@@ -18,10 +19,6 @@ sap.ui.define([
             });
             this.oOwnerComponent.setModel(i18nModel, "i18n");
 
-            // var oSaveModel = models.saveModel();
-            // oView.setModel(oSaveModel, "save");
-            // this.getData();
-            // this.mongoDbAPIcall();
         },
         getData: function () {
             $.ajax({
@@ -33,13 +30,8 @@ sap.ui.define([
                 this.getView().setModel(oMasterRole, "MasterRoles")
             }.bind(this));
         },
-        onShowHello: function () {
-            alert("Hi");
-        },
         onSave: function () {
-
             var oData = this.getView().getModel("save").getData();
-
             $.ajax({
                 url: "./masterrolepost",
                 method: "POST",
@@ -66,7 +58,6 @@ sap.ui.define([
                     name: "bookmychair.fragments.addRole"
                 });
             }
-
             this.pDialog.then(function (oDialog) {
                 oDialog.open();
             });
@@ -75,7 +66,6 @@ sap.ui.define([
         onSignUp: function (oEvent) {
             var oSignUpData = this.getView().getModel("SignUp").getData();
             console.log(oSignUpData);
-
             //Post Data to MongoDB
             $.ajax({
                 url: "./users",
@@ -84,8 +74,6 @@ sap.ui.define([
             }).done(function (data, status, jqxhr) {
                 MessageBox.success("Congratulations, Successfully Signed Up!!!");
             }.bind(this));
-
-
         },
 
         onSignIn: function (oEvent) {
