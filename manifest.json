@@ -1,47 +1,79 @@
 {
-    "_version": "1.8.0",
-    "sap.app": {
-      "id": "bookmychair",
-      "type": "application",
-      "i18n": "i18n/i18n.properties",
-      "title": "{{appTitle}}",
-      "description": "{{appDescription}}",
-      "applicationVersion": {
-        "version": "1.0.0"
-      }
+  "_version": "1.8.0",
+  "sap.app": {
+    "id": "bookmychair",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "bookmychair.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
     },
-    "sap.ui": {
-      "technology": "UI5",
-      "deviceTypes": {
-          "desktop": true,
-          "tablet": true,
-          "phone": true
-      }
-    },
-    "sap.ui5": {
-      "rootView": {
-          "viewName": "bookmychair.view.App",
-          "type": "XML",
-          "async": true,
-          "id": "app"
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "bookmychair.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "async": true
       },
-      "dependencies": {
-        "minUI5Version": "1.30",
-        "libs": {
-          "sap.m": {}
+      "routes": [
+        {
+          "pattern": "",
+          "name": "overview",
+          "target": "overview"
+        },
+        {
+          "pattern": "home",
+          "name": "home",
+          "target": "home"
         }
-      },
-      "contentDensities": {
-        "compact": true,
-        "cozy": true
-      },
-      "models": {
-        "i18n": {
-          "type": "sap.ui.model.resource.ResourceModel",
-          "settings": {
-            "bundleName": "bookmychair.i18n.i18n"
-          }
+      ],
+      "targets": {
+        "overview": {
+          "viewName": "App",
+          "transition": "show"
+        },
+        "home": {
+          "viewName": "home",
+          "transition": "show"
+        }
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.30",
+      "libs": {
+        "sap.m": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "bookmychair.i18n.i18n"
         }
       }
     }
   }
+}

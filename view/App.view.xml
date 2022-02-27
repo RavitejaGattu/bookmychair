@@ -7,9 +7,20 @@
     displayBlock="true"
     controllerName="bookmychair.controller.App">
     <Shell appWidthLimited="false">
-        <App id="app" >
-            <pages>
-                <Page id="idLoginPage" title="{i18n>pageTitle}">
+        <App id="app">
+                <Page id="idLoginPage" backgroundDesign="Transparent">
+                    <headerContent>
+                        <Bar>
+                            <contentMiddle>
+                                <Title text="{i18n>pageTitle}"/>
+                            </contentMiddle>
+                            <contentRight>
+                                <Button text="Sign Up" />
+                                <Text text="/"/>
+                                <Button text="Sign In"/>
+                            </contentRight>
+                        </Bar>
+                    </headerContent>
                     <content>
                         <Panel class="sapUiResponsiveMargin" width="auto"> 
                             <content>
@@ -61,16 +72,73 @@
                                             <Label text="Password" />
                                             <Input value="{SignIn>/password}" type="Password" placeholder="Enter password"/>
                                             <Label/>
-                                            <Button type="Accept" text="Sign In" press="onSignIn"/>
+                                            <Button type="Default" text="Sign In" press="onSignIn"/>
                                         </f:content>
                                     </f:SimpleForm>
                             </content>
                         </Panel>
-                    </content>
-                </Page>
 
-                <Page id="idWelcomePage" title="Welcome user">
-                    <content>
+                        <Panel class="sapUiResponsiveMargin" width="auto"> 
+                            <content>
+                                <f:SimpleForm 
+                                        editable="true"
+                                        layout="ResponsiveGridLayout"
+                                        labelSpanXL="4"
+                                        labelSpanL="4"
+                                        labelSpanM="12"
+                                        labelSpanS="12"
+                                        adjustLabelSpan="false"
+                                        emptySpanXL="4"
+                                        emptySpanL="4"
+                                        emptySpanM="0"
+                                        emptySpanS="0"
+                                        columnsXL="1"
+                                        columnsL="1"
+                                        columnsM="1"
+                                        singleContainerFullSize="false" 
+                                        class="wuiGreyFrame">
+                                        <f:content>
+                                            <Label text="Name" />
+                                            <Select forceSelection="false" >
+                                                <items>
+                                                    <core:Item text="Babu" key="Babu"/>
+                                                    <core:Item text="Kumar" key="Kumar"/>
+                                                </items>
+                                            </Select>
+                                            <Label text="Date" />
+                                            <DatePicker displayFormat="dd/MM/yyyy" />
+                                            <Label text="Time"/>
+                                            <Select forceSelection="false" >
+                                                <items>
+                                                    <core:Item text="6:00 AM" key="6AM"/>
+                                                    <core:Item text="7:00 AM" key="7AM"/>
+                                                    <core:Item text="8:00 AM" key="8AM"/>
+                                                    <core:Item text="9:00 AM" key="9AM"/>
+                                                    <core:Item text="10:00 AM" key="10AM"/>
+                                                    <core:Item text="11:00 AM" key="11AM"/>
+                                                    <core:Item text="12:00 PM" key="12PM"/>
+                                                    <core:Item text="1:00 PM" key="1PM"/>
+                                                    <core:Item text="2:00 PM" key="2PM"/>
+                                                    <core:Item text="3:00 PM" key="3PM"/>
+                                                    <core:Item text="4:00 PM" key="4PM"/>
+                                                    <core:Item text="5:00 PM" key="5PM"/>
+                                                    <core:Item text="6:00 PM" key="6PM"/>
+                                                    <core:Item text="7:00 PM" key="7PM"/>
+                                                    <core:Item text="8:00 PM" key="8PM"/>
+                                                    <core:Item text="9:00 PM" key="9PM"/>
+                                                    <core:Item text="10:00 PM" key="10PM"/>
+                                                </items>
+                                            </Select>
+                                            <Label/>
+                                            <Button text="Book" type="Emphasized" press="onBook"> 
+                                                <layoutData>
+                                                    <l:GridData span="XL1 L1 M2 S4" />
+                                                </layoutData>
+                                            </Button>
+                                        </f:content>
+                                    </f:SimpleForm>
+                            </content>
+                        </Panel>    
 
                     </content>
                 </Page>
@@ -88,7 +156,6 @@
                         </Panel>
                     </content>
                 </Page> -->
-            </pages>
         </App>
     </Shell>
 </mvc:view>

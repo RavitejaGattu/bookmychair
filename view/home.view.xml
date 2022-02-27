@@ -1,0 +1,13 @@
+<mvc:view
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    controllerName="bookmychair.controller.home">
+    <Page showNavButton="true" navButtonPress="onNavBack" title="Welcome User" >
+
+        
+    </Page>
+</mvc:view>    

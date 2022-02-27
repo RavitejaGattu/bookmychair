@@ -20,32 +20,6 @@ sap.ui.define([
             this.oOwnerComponent.setModel(i18nModel, "i18n");
 
         },
-        getData: function () {
-            $.ajax({
-                url: "./masterrole"
-            }).done(function (data, status, jqxhr) {
-                // alert(data);
-                var oMasterRole = new sap.ui.model.json.JSONModel();
-                oMasterRole.setData(data);
-                this.getView().setModel(oMasterRole, "MasterRoles")
-            }.bind(this));
-        },
-        onSave: function () {
-            var oData = this.getView().getModel("save").getData();
-            $.ajax({
-                url: "./masterrolepost",
-                method: "POST",
-                data: oData
-            }).done(function (data, status, jqxhr) {
-                // console.log(data);
-                this.getData();
-                var oSaveModel = models.saveModel();
-                this.getView().setModel(oSaveModel, "save");
-                this.pDialog.then(function (oDialog) {
-                    oDialog.close();
-                });
-            }.bind(this));
-        },
         onCancel: function () {
             this.pDialog.then(function (oDialog) {
                 oDialog.close();
@@ -66,29 +40,80 @@ sap.ui.define([
         onSignUp: function (oEvent) {
             var oSignUpData = this.getView().getModel("SignUp").getData();
             console.log(oSignUpData);
+            var oView = this.getView();
+            oView.setBusy(true);
             //Post Data to MongoDB
             $.ajax({
                 url: "./users",
                 method: "POST",
                 data: oSignUpData
             }).done(function (data, status, jqxhr) {
+                oView.setBusy(false);
                 MessageBox.success("Congratulations, Successfully Signed Up!!!");
+                var oSignUp = models.signUpModel();
+                this.oOwnerComponent.setModel(oSignUp, "SignUp");
             }.bind(this));
         },
 
         onSignIn: function (oEvent) {
             var oSignInData = this.getView().getModel("SignIn").getData();
+            var oView = this.getView();
+            oView.setBusy(true);
             $.ajax({
                 url: "./login",
                 method: "POST",
                 data: oSignInData
             }).done(function (data, status, jqxhr) {
-                if(data.length === 0){
+                oView.setBusy(false);
+                if (data.length === 0) {
                     MessageBox.error("Worng credentials!!!");
                 } else {
+                    oView.setBusy(true);
+                    var oSignIn = models.signInModel();
+                    this.oOwnerComponent.setModel(oSignIn, "SignIn");
                     MessageBox.success("Congratulations, Successfully Signed In!!!");
+                    setTimeout(function () {
+                        oView.setBusy(false);
+                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        oRouter.navTo("home");
+                    }.bind(this), 3000);
                 }
             }.bind(this));
+        },
+        onBook: function () {
+            sap.m.MessageToast.show("Booking Successful!");
         }
+
+
+
+
+
+
+        // getData: function () {
+        //     $.ajax({
+        //         url: "./masterrole"
+        //     }).done(function (data, status, jqxhr) {
+        //         // alert(data);
+        //         var oMasterRole = new sap.ui.model.json.JSONModel();
+        //         oMasterRole.setData(data);
+        //         this.getView().setModel(oMasterRole, "MasterRoles")
+        //     }.bind(this));
+        // },
+        // onSave: function () {
+        //     var oData = this.getView().getModel("save").getData();
+        //     $.ajax({
+        //         url: "./masterrolepost",
+        //         method: "POST",
+        //         data: oData
+        //     }).done(function (data, status, jqxhr) {
+        //         // console.log(data);
+        //         this.getData();
+        //         var oSaveModel = models.saveModel();
+        //         this.getView().setModel(oSaveModel, "save");
+        //         this.pDialog.then(function (oDialog) {
+        //             oDialog.close();
+        //         });
+        //     }.bind(this));
+        // },
     });
 });
