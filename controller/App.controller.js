@@ -2,8 +2,9 @@ sap.ui.define([
     'sap/ui/core/mvc/Controller',
     'bookmychair/model/models',
     'sap/m/MessageBox',
-    "sap/ui/model/resource/ResourceModel"
-], function (Controller, models, MessageBox, ResourceModel) {
+    "sap/ui/model/resource/ResourceModel",
+    "sap/ui/core/syncStyleClass"
+], function (Controller, models, MessageBox, ResourceModel, syncStyleClass) {
     'use strict';
     return Controller.extend("bookmychair.controller.App", {
         onInit: function () {
@@ -52,6 +53,11 @@ sap.ui.define([
                 MessageBox.success("Congratulations, Successfully Signed Up!!!");
                 var oSignUp = models.signUpModel();
                 this.oOwnerComponent.setModel(oSignUp, "SignUp");
+                this.onCancelSignUp();
+                setTimeout(function () {
+                    var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                    oRouter.navTo("home");
+                }.bind(this), 2000);
             }.bind(this));
         },
 
@@ -71,6 +77,7 @@ sap.ui.define([
                     oView.setBusy(true);
                     var oSignIn = models.signInModel();
                     this.oOwnerComponent.setModel(oSignIn, "SignIn");
+                    this.onCancelSignIn();
                     MessageBox.success("Congratulations, Successfully Signed In!!!");
                     setTimeout(function () {
                         oView.setBusy(false);
@@ -80,6 +87,55 @@ sap.ui.define([
                 }
             }.bind(this));
         },
+
+        onSignUpBtn: function () {
+            // create dialog lazily
+            if (!this.pSignUpDialog) {
+                this.pSignUpDialog = this.loadFragment({
+                    name: "bookmychair.fragments.signup"
+                }).then(function (oDialog) {
+                    // forward compact/cozy style into dialog
+                    syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), oDialog);
+                    return oDialog;
+                }.bind(this));
+            }
+            this.pSignUpDialog.then(function (oDialog) {
+                oDialog.open();
+            });
+        },
+
+        onSignInBtn: function () {
+            // create dialog lazily
+            if (!this.pSignInDialog) {
+                this.pSignInDialog = this.loadFragment({
+                    name: "bookmychair.fragments.signin"
+                }).then(function (oDialog) {
+                    // forward compact/cozy style into dialog
+                    syncStyleClass(this.getOwnerComponent().getContentDensityClass(), this.getView(), oDialog);
+                    return oDialog;
+                }.bind(this));
+            }
+            this.pSignInDialog.then(function (oDialog) {
+                oDialog.open();
+            });
+        },
+
+        onCancelSignUp: function () {
+            this.pSignUpDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            var oSignUp = models.signUpModel();
+            this.oOwnerComponent.setModel(oSignUp, "SignUp");
+        },
+
+        onCancelSignIn: function () {
+            this.pSignInDialog.then(function (oDialog) {
+                oDialog.close();
+            });
+            var oSignIn = models.signInModel();
+            this.oOwnerComponent.setModel(oSignIn, "SignIn");
+        },
+
         onBook: function () {
             sap.m.MessageToast.show("Booking Successful!");
         }

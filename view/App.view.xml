@@ -6,23 +6,23 @@
     xmlns:core="sap.ui.core"
     displayBlock="true"
     controllerName="bookmychair.controller.App">
-    <Shell appWidthLimited="false">
-        <App id="app">
-                <Page id="idLoginPage" backgroundDesign="Transparent">
+    <Shell appWidthLimited="false" >
+        <App id="app" backgroundImage="/images/3.jpg" backgroundOpacity="2" >
+                <Page id="idLoginPage" backgroundDesign="Transparent" >
                     <headerContent>
                         <Bar>
                             <contentMiddle>
                                 <Title text="{i18n>pageTitle}"/>
                             </contentMiddle>
                             <contentRight>
-                                <Button text="Sign Up" />
+                                <Button text="Sign Up" press="onSignUpBtn"/>
                                 <Text text="/"/>
-                                <Button text="Sign In"/>
+                                <Button text="Sign In" press="onSignInBtn"/>
                             </contentRight>
                         </Bar>
                     </headerContent>
                     <content>
-                        <Panel class="sapUiResponsiveMargin" width="auto"> 
+                        <!-- <Panel class="sapUiResponsiveMargin wuiWhiteFrame" width="auto"> 
                             <content>
                                 <f:SimpleForm id="SimpleFormChange480_12120"
                                         editable="true"
@@ -40,8 +40,7 @@
                                         columnsXL="2"
                                         columnsL="2"
                                         columnsM="1"
-                                        singleContainerFullSize="false" 
-                                        class="wuiGreyFrame">
+                                        singleContainerFullSize="false" >
                                         <f:content>
                                             <core:Title text="Sign Up" />
                                             <Label text="Name" />
@@ -76,7 +75,7 @@
                                         </f:content>
                                     </f:SimpleForm>
                             </content>
-                        </Panel>
+                        </Panel> -->
 
                         <Panel class="sapUiResponsiveMargin" width="auto"> 
                             <content>
@@ -96,7 +95,7 @@
                                         columnsL="1"
                                         columnsM="1"
                                         singleContainerFullSize="false" 
-                                        class="wuiGreyFrame">
+                                        class="wuiWhiteFrame">
                                         <f:content>
                                             <Label text="Name" />
                                             <Select forceSelection="false" >
