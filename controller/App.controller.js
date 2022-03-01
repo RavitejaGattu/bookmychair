@@ -19,7 +19,8 @@ sap.ui.define([
                 bundleName: "bookmychair.i18n.i18n"
             });
             this.oOwnerComponent.setModel(i18nModel, "i18n");
-
+            var oLocalReff = models.localModel();
+            this.oOwnerComponent.setModel(oLocalReff, "LocalReff");
         },
         onCancel: function () {
             this.pDialog.then(function (oDialog) {
@@ -54,10 +55,10 @@ sap.ui.define([
                 var oSignUp = models.signUpModel();
                 this.oOwnerComponent.setModel(oSignUp, "SignUp");
                 this.onCancelSignUp();
-                setTimeout(function () {
-                    var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                    oRouter.navTo("home");
-                }.bind(this), 2000);
+                // setTimeout(function () {
+                //     var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                //     oRouter.navTo("home");
+                // }.bind(this), 2000);
             }.bind(this));
         },
 
@@ -74,16 +75,21 @@ sap.ui.define([
                 if (data.length === 0) {
                     MessageBox.error("Worng credentials!!!");
                 } else {
-                    oView.setBusy(true);
+                    // oView.setBusy(true);
+                    oView.setBusy(false);
+                    var oData = new sap.ui.model.json.JSONModel();
+                    oData.setData(data);
+                    this.oOwnerComponent.setModel(oData, "SignedInUser");
+                    this.oOwnerComponent.getModel("LocalReff").setProperty("/signedInFlag", true);
                     var oSignIn = models.signInModel();
                     this.oOwnerComponent.setModel(oSignIn, "SignIn");
                     this.onCancelSignIn();
                     MessageBox.success("Congratulations, Successfully Signed In!!!");
-                    setTimeout(function () {
-                        oView.setBusy(false);
-                        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                        oRouter.navTo("home");
-                    }.bind(this), 3000);
+                    // setTimeout(function () {
+                    //     oView.setBusy(false);
+                    //     var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                    //     oRouter.navTo("home");
+                    // }.bind(this), 3000);
                 }
             }.bind(this));
         },
@@ -136,8 +142,28 @@ sap.ui.define([
             this.oOwnerComponent.setModel(oSignIn, "SignIn");
         },
 
-        onBook: function () {
-            sap.m.MessageToast.show("Booking Successful!");
+        onBookPress: function () {
+            var bLoggedin = this.checkLogin();
+            if(!bLoggedin) return MessageBox.error("Please sign in to continue"); 
+
+            var products = [];
+
+            products.push({
+                title: "Babu",
+                subtitle: "1:00 PM",
+                revenue: "440"
+            });
+            var Products = new sap.ui.model.json.JSONModel();
+            Products.setData(products);
+            this.getView().setModel(Products, "products");
+
+
+        },
+
+        checkLogin: function(){
+            var bFlag = this.oOwnerComponent.getModel("LocalReff").getProperty("/signedInFlag");
+            if(bFlag) return true 
+            else return false
         }
 
 

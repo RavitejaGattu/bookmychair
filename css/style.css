@@ -1,3 +1,4 @@
+
 .wuiDarkFrame { 
     background-color: #d9edf7 !important;;
     border-color: #bce8f1 !important;;
@@ -25,9 +26,9 @@
     border-radius: 4px !important;
 }
 .wuiWhiteFrame {    
-    background-color: #ffffff !important;
+    background-color: #fefefec7 !important;
     border-color: #dddddd !important;
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
     color: #3a87ad !important;
     border-radius: 4px !important;
@@ -35,25 +36,4 @@
 .sapMPanelContent {
     border: none !important;
 }
-
-.loader {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-  }
-  
-  /* Safari */
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
 

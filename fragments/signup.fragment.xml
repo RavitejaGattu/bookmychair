@@ -44,14 +44,8 @@
                     <Input value="{SignUp>/cpassword}" maxLength="20" placeholder="Confirm password"/>
                     <Label/>
                     <Button type="Accept" text="Sign Up" press="onSignUp">
-                        <layoutData>
-                            <l:GridData span="XL2 L2 M2 S4" />
-                        </layoutData>
                     </Button>
                     <Button type="Reject" text="Cancel" press="onCancelSignUp">
-                        <layoutData>
-                            <l:GridData span="XL2 L2 M2 S4" />
-                        </layoutData>
                     </Button>
                 </f:content>
             </f:SimpleForm>

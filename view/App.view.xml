@@ -2,26 +2,111 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:l="sap.ui.layout"
-    xmlns:f="sap.ui.layout.form"
+    xmlns:s="sap.ui.layout.form"
     xmlns:core="sap.ui.core"
     displayBlock="true"
+	xmlns:f="sap.f"
+	xmlns:card="sap.f.cards"
     controllerName="bookmychair.controller.App">
     <Shell appWidthLimited="false" >
-        <App id="app" backgroundImage="/images/3.jpg" backgroundOpacity="2" >
-                <Page id="idLoginPage" backgroundDesign="Transparent" >
-                    <headerContent>
-                        <Bar>
-                            <contentMiddle>
-                                <Title text="{i18n>pageTitle}"/>
-                            </contentMiddle>
-                            <contentRight>
-                                <Button text="Sign Up" press="onSignUpBtn"/>
-                                <Text text="/"/>
-                                <Button text="Sign In" press="onSignInBtn"/>
-                            </contentRight>
-                        </Bar>
-                    </headerContent>
-                    <content>
+        <App id="app" backgroundImage="/images/1.jpeg" backgroundOpacity="0.3" >
+            <Page id="idLoginPage">
+                <headerContent>
+                    <Bar>
+                        <contentLeft>
+                            <Title text="{i18n>AppTitleHome}"/>
+                        </contentLeft>
+                        <contentRight>
+                            <Button text="Sign Up" press="onSignUpBtn" visible="{=!${LocalReff>/signedInFlag}}" />
+                            <Text text="/" visible="{=!${LocalReff>/signedInFlag}}" />
+                            <Button text="Sign In" press="onSignInBtn" visible="{=!${LocalReff>/signedInFlag}}" />
+                            <Button text="Sign Out" press="onSignOutBtn" visible="{LocalReff>/signedInFlag}" />
+                        </contentRight>
+                    </Bar>
+                </headerContent>
+                <f:Card class="sapUiMediumMargin" width="300px">
+                    <f:header>
+                        <card:Header
+                            title="Book a seat on-line"
+                            subtitle="Book a seat for haircut with your favourite Barber"
+                            iconSrc="sap-icon://scissors" />
+                    </f:header>
+                    <f:content>
+                        <VBox
+                            height="150px"
+                            class="sapUiSmallMargin"
+                            justifyContent="SpaceBetween">
+                            <!-- <HBox justifyContent="SpaceBetween"> -->
+                                <ComboBox
+                                    width="260px"
+                                    placeholder="Barber">
+                                    <items>
+                                        <core:Item text="Mr. Babu" key="Babu"/>
+                                        <core:Item text="Mr. Kumar" key="Kumar"/>
+                                    </items>
+                                </ComboBox>
+                                <ComboBox
+                                    width="260px"
+                                    placeholder="Time">
+                                    <items>
+                                        <core:Item text="6:00 AM" key="6AM"/>
+                                        <core:Item text="7:00 AM" key="7AM"/>
+                                        <core:Item text="8:00 AM" key="8AM"/>
+                                        <core:Item text="9:00 AM" key="9AM"/>
+                                        <core:Item text="10:00 AM" key="10AM"/>
+                                        <core:Item text="11:00 AM" key="11AM"/>
+                                        <core:Item text="12:00 PM" key="12PM"/>
+                                        <core:Item text="1:00 PM" key="1PM"/>
+                                        <core:Item text="2:00 PM" key="2PM"/>
+                                        <core:Item text="3:00 PM" key="3PM"/>
+                                        <core:Item text="4:00 PM" key="4PM"/>
+                                        <core:Item text="5:00 PM" key="5PM"/>
+                                        <core:Item text="6:00 PM" key="6PM"/>
+                                        <core:Item text="7:00 PM" key="7PM"/>
+                                        <core:Item text="8:00 PM" key="8PM"/>
+                                        <core:Item text="9:00 PM" key="9PM"/>
+                                        <core:Item text="10:00 PM" key="10PM"/>
+                                    </items>
+                                </ComboBox>
+                            <!-- </HBox> -->
+                            <HBox renderType="Bare" justifyContent="SpaceBetween">
+                                <DatePicker width="200px" placeholder="Choose Date ..." minDate="{LocalReff>/minDate}"/>
+                                <Button
+                                    text="Book"
+                                    press=".onBookPress"
+                                    type="Emphasized"
+                                    class="sapUiTinyMarginBegin" />
+                            </HBox>
+                        </VBox>
+                    </f:content>
+                </f:Card>
+
+                <f:Card class="sapUiMediumMargin" width="300px">
+                    <f:header>
+                        <card:Header title="Bookings" subtitle="Check your bookings so far" />
+                    </f:header>
+                    <f:content>
+                        <List
+                            showSeparators="None"
+                            items="{
+                                path: 'products>/'
+                            }">
+                            <CustomListItem>
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
+                                        <Title level="H3" text="{products>title}" />
+                                        <Text text="{products>subtitle}" />
+                                    </VBox>
+                                    <ObjectStatus
+                                        class="sapUiTinyMargin sapUiSmallMarginEnd"
+                                        text="{products>revenue}"
+                                        state="{products>statusSchema}" />
+                                </HBox>
+                            </CustomListItem>
+                        </List>
+                    </f:content>
+                </f:Card>
+             <!-- <content> -->
                         <!-- <Panel class="sapUiResponsiveMargin wuiWhiteFrame" width="auto"> 
                             <content>
                                 <f:SimpleForm id="SimpleFormChange480_12120"
@@ -77,7 +162,9 @@
                             </content>
                         </Panel> -->
 
-                        <Panel class="sapUiResponsiveMargin" width="auto"> 
+
+
+                        <!-- <Panel class="sapUiResponsiveMargin" width="auto" backgroundDesign="Translucent"> 
                             <content>
                                 <f:SimpleForm 
                                         editable="true"
@@ -137,9 +224,9 @@
                                         </f:content>
                                     </f:SimpleForm>
                             </content>
-                        </Panel>    
+                        </Panel>     -->
 
-                    </content>
+                    <!-- </content> -->
                 </Page>
                 <!-- <Page title="UI5 Application with Node JS">
                     <headerContent>

@@ -3,6 +3,13 @@ sap.ui.define([
 ], function (JSONModel) {
     'use strict';
     return {
+
+        localModel: function(){
+            return new JSONModel({
+                minDate: new Date(),
+                signedInFlag: false
+            });
+        },
         saveModel: function () {
             return new JSONModel({
                 role: "",
