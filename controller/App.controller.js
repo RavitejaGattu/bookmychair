@@ -21,6 +21,14 @@ sap.ui.define([
             this.oOwnerComponent.setModel(i18nModel, "i18n");
             var oLocalReff = models.localModel();
             this.oOwnerComponent.setModel(oLocalReff, "LocalReff");
+
+            var oBookingModel = models.bookingModel();
+            this.oOwnerComponent.setModel(oBookingModel, "BookingModel");
+
+            var oBook = models.Book();
+            this.oOwnerComponent.setModel(oBook, "Book");
+            // //get bookings
+            // this.getBookings();
         },
         onCancel: function () {
             this.pDialog.then(function (oDialog) {
@@ -84,6 +92,8 @@ sap.ui.define([
                     var oSignIn = models.signInModel();
                     this.oOwnerComponent.setModel(oSignIn, "SignIn");
                     this.onCancelSignIn();
+
+                    this.getBookings();
                     MessageBox.success("Congratulations, Successfully Signed In!!!");
                     // setTimeout(function () {
                     //     oView.setBusy(false);
@@ -142,28 +152,84 @@ sap.ui.define([
             this.oOwnerComponent.setModel(oSignIn, "SignIn");
         },
 
-        onBookPress: function () {
+        onBookPress: function (oEvent) {
             var bLoggedin = this.checkLogin();
-            if(!bLoggedin) return MessageBox.error("Please sign in to continue"); 
+            if (!bLoggedin) return MessageBox.error("Please sign in to continue");
+            var oData = this.oOwnerComponent.getModel("Book").getData();
+            var oSignedInUserData = this.oOwnerComponent.getModel("SignedInUser").getData();
+            var oEntry = {
+                barber: oData.barber,
+                time: oData.time,
+                date: oData.date,
+                user: oSignedInUserData[0].name,
+                bookingDate: new Date()
+            }
 
-            var products = [];
+            console.log(oEntry)
 
-            products.push({
-                title: "Babu",
-                subtitle: "1:00 PM",
-                revenue: "440"
-            });
-            var Products = new sap.ui.model.json.JSONModel();
-            Products.setData(products);
-            this.getView().setModel(Products, "products");
+
+            var oView = this.getView();
+            oView.setBusy(true);
+            $.ajax({
+                url: "./book",
+                method: "POST",
+                data: oEntry
+            }).done(function (data, status, jqxhr) {
+                oView.setBusy(false);
+                if(data.acknowledged) 
+                console.log(data)
+                else 
+                console.log("Failed")
+                this.getBookings();
+            }.bind(this));
+
+            // var products = [];
+
+            // products.push({
+            //     title: "Babu",
+            //     subtitle: "1:00 PM",
+            //     revenue: "440"
+            // });
+            // var Products = new sap.ui.model.json.JSONModel();
+            // Products.setData(oData);
+            // this.oOwnerComponent.setModel(Products, "products");
 
 
         },
 
-        checkLogin: function(){
+        handleDelete: function () {
+            sap.m.MessageToast.show("Deleted");
+        },
+
+        checkLogin: function () {
             var bFlag = this.oOwnerComponent.getModel("LocalReff").getProperty("/signedInFlag");
-            if(bFlag) return true 
+            if (bFlag) return true
             else return false
+        },
+
+        getBookings: function(){
+            var bFlag = this.oOwnerComponent.getModel("LocalReff").getProperty("/signedInFlag");
+            if(bFlag){
+                var oView = this.getView();
+                oView.setBusy(true);
+                $.ajax({
+                    url: "./bookings",
+                    method: "POST",
+                    data: {
+                        user: "Teja"
+                    }
+                }).done(function (data, status, jqxhr) {
+                    oView.setBusy(false);
+                    if(data.acknowledged) 
+                    console.log(data)
+                    else 
+                    console.log("Failed")
+
+                    var oData = new sap.ui.model.json.JSONModel();
+                    oData.setData(data);
+                    this.oOwnerComponent.setModel(oData, "BookingModel");
+                }.bind(this));
+            }
         }
 
 

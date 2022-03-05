@@ -9,7 +9,7 @@
 	xmlns:card="sap.f.cards"
     controllerName="bookmychair.controller.App">
     <Shell appWidthLimited="false" >
-        <App id="app" backgroundImage="/images/1.jpeg" backgroundOpacity="0.3" >
+        <App id="app" backgroundImage="/images/1.jpeg" backgroundOpacity="0.4" >
             <Page id="idLoginPage">
                 <headerContent>
                     <Bar>
@@ -39,15 +39,24 @@
                             <!-- <HBox justifyContent="SpaceBetween"> -->
                                 <ComboBox
                                     width="260px"
-                                    placeholder="Barber">
+                                    placeholder="Barber"
+                                    selectedKey="{Book>/barber}">
                                     <items>
                                         <core:Item text="Mr. Babu" key="Babu"/>
                                         <core:Item text="Mr. Kumar" key="Kumar"/>
                                     </items>
                                 </ComboBox>
+                                <!-- <TimePicker
+                                    valueFormat="hh:mm a"
+                                    displayFormat="hh:mm a"
+                                    change="handleChange"
+                                    dateValue="{Book>/time}"
+                                    placeholder="Select time" >
+                                </TimePicker>  -->
                                 <ComboBox
                                     width="260px"
-                                    placeholder="Time">
+                                    placeholder="Time"
+                                    selectedKey="{Book>/time}">
                                     <items>
                                         <core:Item text="6:00 AM" key="6AM"/>
                                         <core:Item text="7:00 AM" key="7AM"/>
@@ -70,7 +79,13 @@
                                 </ComboBox>
                             <!-- </HBox> -->
                             <HBox renderType="Bare" justifyContent="SpaceBetween">
-                                <DatePicker width="200px" placeholder="Choose Date ..." minDate="{LocalReff>/minDate}"/>
+                                <DatePicker 
+                                    value="{Book>/date}" 
+                                    width="200px" 
+                                    placeholder="Choose Date ..." 
+                                    minDate="{LocalReff>/minDate}"
+                                    valueFormat="dd/MM/yyyy"
+                                    displayFormat="dd/MM/yyyy"/>
                                 <Button
                                     text="Book"
                                     press=".onBookPress"
@@ -88,19 +103,21 @@
                     <f:content>
                         <List
                             showSeparators="None"
+                            mode="Delete"
+		                    delete="handleDelete"
                             items="{
-                                path: 'products>/'
+                                path: 'BookingModel>/'
                             }">
                             <CustomListItem>
                                 <HBox alignItems="Center" justifyContent="SpaceBetween">
                                     <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom" >
-                                        <Title level="H3" text="{products>title}" />
-                                        <Text text="{products>subtitle}" />
+                                        <Title level="H3" text="{BookingModel>barber}" />
+                                        <Text text="{BookingModel>date}" />
                                     </VBox>
                                     <ObjectStatus
                                         class="sapUiTinyMargin sapUiSmallMarginEnd"
-                                        text="{products>revenue}"
-                                        state="{products>statusSchema}" />
+                                        text="{BookingModel>time}"
+                                        state="Success"/>
                                 </HBox>
                             </CustomListItem>
                         </List>

@@ -4,7 +4,7 @@ sap.ui.define([
     'use strict';
     return {
 
-        localModel: function(){
+        localModel: function () {
             return new JSONModel({
                 minDate: new Date(),
                 signedInFlag: false
@@ -17,7 +17,7 @@ sap.ui.define([
             });
         },
 
-        signUpModel: function(){
+        signUpModel: function () {
             return new JSONModel({
                 name: "",
                 phone: "",
@@ -29,11 +29,29 @@ sap.ui.define([
             });
         },
 
-        signInModel: function(){
+        signInModel: function () {
             return new JSONModel({
                 username: "",
                 password: ""
             });
+        },
+
+        Book: function () {
+            return new JSONModel(
+                {
+                    barber: "",
+                    time: "",
+                    date: ""
+                }
+            );
+        },
+
+        bookingModel: function () {
+            return new JSONModel(
+                [
+
+                ]
+            );
         }
     }
 });
