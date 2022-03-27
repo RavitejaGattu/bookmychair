@@ -93,7 +93,7 @@ sap.ui.define([
                     this.oOwnerComponent.setModel(oSignIn, "SignIn");
                     this.onCancelSignIn();
 
-                    this.getBookings();
+                    this.getBookings(data[0].name);
                     MessageBox.success("Congratulations, Successfully Signed In!!!");
                     // setTimeout(function () {
                     //     oView.setBusy(false);
@@ -207,7 +207,7 @@ sap.ui.define([
             else return false
         },
 
-        getBookings: function(){
+        getBookings: function(name){
             var bFlag = this.oOwnerComponent.getModel("LocalReff").getProperty("/signedInFlag");
             if(bFlag){
                 var oView = this.getView();
@@ -216,7 +216,7 @@ sap.ui.define([
                     url: "./bookings",
                     method: "POST",
                     data: {
-                        user: "Teja"
+                        user: name
                     }
                 }).done(function (data, status, jqxhr) {
                     oView.setBusy(false);
