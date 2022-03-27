@@ -25,7 +25,7 @@
                     <Label text="Username" />
                     <Input value="{SignIn>/username}" placeholder="Enter username"/>
                     <Label text="Password" />
-                    <Input value="{SignIn>/password}" type="Password" placeholder="Enter password"/>
+                    <Input value="{SignIn>/password}" placeholder="Enter password"/>
                     <Label/>
                     <Button type="Default" text="Sign In" press="onSignIn"/>
                     <Button type="Reject" text="Cancel" press="onCancelSignIn"/>

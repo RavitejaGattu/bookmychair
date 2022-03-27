@@ -16,6 +16,9 @@
                         <contentLeft>
                             <Title text="{i18n>AppTitleHome}"/>
                         </contentLeft>
+                        <contentMiddle>
+                            <Title text="{i18n>Welcome} - {SignedInUser>/0/name}" visible="{LocalReff>/signedInFlag}" />
+                        </contentMiddle>
                         <contentRight>
                             <Button text="Sign Up" press="onSignUpBtn" visible="{=!${LocalReff>/signedInFlag}}" />
                             <Text text="/" visible="{=!${LocalReff>/signedInFlag}}" />

@@ -79,12 +79,12 @@ sap.ui.define([
                 method: "POST",
                 data: oSignInData
             }).done(function (data, status, jqxhr) {
-                oView.setBusy(false);
                 if (data.length === 0) {
+                    oView.setBusy(false);
                     MessageBox.error("Worng credentials!!!");
                 } else {
                     // oView.setBusy(true);
-                    oView.setBusy(false);
+                    // oView.setBusy(false);
                     var oData = new sap.ui.model.json.JSONModel();
                     oData.setData(data);
                     this.oOwnerComponent.setModel(oData, "SignedInUser");
@@ -93,13 +93,13 @@ sap.ui.define([
                     this.oOwnerComponent.setModel(oSignIn, "SignIn");
                     this.onCancelSignIn();
 
-                    this.getBookings(data[0].name);
-                    MessageBox.success("Congratulations, Successfully Signed In!!!");
-                    // setTimeout(function () {
-                    //     oView.setBusy(false);
-                    //     var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-                    //     oRouter.navTo("home");
-                    // }.bind(this), 3000);
+                    setTimeout(function () {
+                        oView.setBusy(false);
+                        this.getBookings(data[0].name);
+                        MessageBox.success("Congratulations, Successfully Signed In!!!");
+                        // var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+                        // oRouter.navTo("home");
+                    }.bind(this), 2000);
                 }
             }.bind(this));
         },
@@ -176,11 +176,11 @@ sap.ui.define([
                 data: oEntry
             }).done(function (data, status, jqxhr) {
                 oView.setBusy(false);
-                if(data.acknowledged) 
-                console.log(data)
-                else 
-                console.log("Failed")
-                this.getBookings();
+                if (data.acknowledged)
+                    console.log(data)
+                else
+                    console.log("Failed")
+                this.getBookings(oSignedInUserData[0].name);
             }.bind(this));
 
             // var products = [];
@@ -207,9 +207,9 @@ sap.ui.define([
             else return false
         },
 
-        getBookings: function(name){
+        getBookings: function (name) {
             var bFlag = this.oOwnerComponent.getModel("LocalReff").getProperty("/signedInFlag");
-            if(bFlag){
+            if (bFlag) {
                 var oView = this.getView();
                 oView.setBusy(true);
                 $.ajax({
@@ -220,16 +220,28 @@ sap.ui.define([
                     }
                 }).done(function (data, status, jqxhr) {
                     oView.setBusy(false);
-                    if(data.acknowledged) 
-                    console.log(data)
-                    else 
-                    console.log("Failed")
+                    if (data.acknowledged)
+                        console.log(data)
+                    else
+                        console.log("Failed")
 
                     var oData = new sap.ui.model.json.JSONModel();
                     oData.setData(data);
                     this.oOwnerComponent.setModel(oData, "BookingModel");
                 }.bind(this));
             }
+        },
+
+        onSignOutBtn: function () {
+            var oView = this.getView();
+            oView.setBusy(true);
+            setTimeout(function () {
+                oView.setBusy(false);
+                this.oOwnerComponent.getModel("SignedInUser").setData([]);
+                this.oOwnerComponent.getModel("BookingModel").setData([]);
+                this.oOwnerComponent.getModel("LocalReff").setProperty("/signedInFlag", false);
+                MessageBox.success("Successfully Logged Out!!!");
+            }.bind(this), 2000);
         }
 
 
